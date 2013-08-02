@@ -11,14 +11,12 @@ ATTRIBUTES:
 
 License and Author
 ==================
-Author:: Antek Baranski (<abaranski@roblox.com>)
 
-Author:: Theo (<theo@jivatechnology.com>)
+- Author:: Theo (<theo@jivatechnology.com>)
+- Author:: Antek Baranski (<abaranski@roblox.com>)
 
-
-Copyright:: 2013, Roblox, Inc
-
-Copyright:: 2010-2013, Jiva Technology, Ltd.
+- Copyright:: 2010-2013, Jiva Technology, Ltd.
+- Copyright:: 2013, Roblox, Inc
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
