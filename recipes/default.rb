@@ -23,10 +23,11 @@ ark "solr" do
   url node['solr']['url']
   version node['solr']['version']
   checksum node['solr']['checksum']
+  prefix_home node['solr']['prefix_home']
   action :install
 end
 
-template "#{node['jetty']['home']}/contexts/solr.xml" do
+template "#{node["jetty"]["context_dir"]}/solr.xml" do
   owner  node['jetty']['user']
   source "solr.context.erb"
   notifies :restart, resources(:service => "jetty")
