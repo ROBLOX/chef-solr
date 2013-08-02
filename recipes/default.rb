@@ -99,6 +99,7 @@ if node.solr.custom_config
 
 end
 
+=begin
 remote_directory "/etc/solr/conf" do
   source       "sunspot-1.2.1"
   owner        node.jetty.user
@@ -111,6 +112,4 @@ remote_directory "/etc/solr/conf" do
   notifies     :restart, resources(:service => "jetty")
   not_if       "test -e #{node.solr.custom_config}/solrconfig.xml"
 end
-
-
-
+=end

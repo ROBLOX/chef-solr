@@ -3,8 +3,10 @@
 
 <Configure class="org.eclipse.jetty.webapp.WebAppContext">
 
-  <Set name="contextPath"><%= node['solr']['context_path'] %>></Set>
-  <Set name="war"><SystemProperty name="jetty.home" default="."/>/webapps/solr.war</Set>
+  <Set name="contextPath"><SystemProperty name="hostContext" default=<%= node['solr']['context_path'] %>"/></Set>
+  <Set name="war"><SystemProperty name="jetty.home"/>/webapps/<%= node['solr']['war'] %></Set>
+  <Set name="defaultsDescriptor"><SystemProperty name="jetty.home"/>/etc/webdefault.xml</Set>
+  <Set name="tempDirectory"><Property name="jetty.home" default="."/>/webapps/solr/temp</Set>
 
   <Call class="java.lang.System" name="setProperty">
     <Arg>solr.solr.home</Arg>
