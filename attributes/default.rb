@@ -11,6 +11,7 @@ else
   default['solr']['url'] = "http://archive.apache.org/dist/lucene/solr/#{node['solr']['version']}/apache-solr-#{node['solr']['version']}.tgz"
 end
 
+default['solr']['context_path']  = '/solr'
 default['solr']['config_dir'] = '/etc/solr'
 default['solr']['prefix_home'] = '/usr/share'
 default['solr']['data'] = "#{node['jetty']['home']}/#{node["jetty"]["webapp_dir"]}/solr/data"

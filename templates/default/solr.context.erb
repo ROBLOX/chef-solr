@@ -3,17 +3,17 @@
 
 <Configure class="org.eclipse.jetty.webapp.WebAppContext">
 
-  <Set name="contextPath">/<%= node.solr.context_path %></Set>
+  <Set name="contextPath"><%= node['solr']['context_path'] %>></Set>
   <Set name="war"><SystemProperty name="jetty.home" default="."/>/webapps/solr.war</Set>
 
   <Call class="java.lang.System" name="setProperty">
     <Arg>solr.solr.home</Arg>
-    <Arg><%= node.solr.home %></Arg>
+    <Arg><%= node['solr']['config_dir'] %></Arg>
   </Call>
 
   <Call class="java.lang.System" name="setProperty">
     <Arg>solr.data.dir</Arg>
-    <Arg><%= node.solr.data %></Arg>
+    <Arg><%= node['solr']['data'] %></Arg>
   </Call>
 
 </Configure>
