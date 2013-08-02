@@ -19,12 +19,23 @@
 
 include_recipe "jetty"
 
+directory node['solr']['data'] do
+  user node['jetty']['user']
+  group node['jetty']['group']
+  recursive true
+  action :create
+end
+
 ark "solr" do
   url node['solr']['url']
   version node['solr']['version']
   checksum node['solr']['checksum']
-  prefix_home node['solr']['prefix_home']
-  action :install
+  action :put
+end
+
+execute "Deploy #{node['solr']['war']}" do
+  command "cp #{node['ark']['prefix_root']}/solr/dist/#{node['solr']['war']} #{node["jetty"]["webapp_dir"]}/#{node['solr']['war']}"
+  action :run
 end
 
 template "#{node["jetty"]["context_dir"]}/solr.xml" do
