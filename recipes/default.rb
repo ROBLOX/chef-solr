@@ -19,33 +19,15 @@
 
 include_recipe "jetty"
 
-remote_file node['solr']['download'] do
-  source   node['solr']['link']
+ark "solr" do
+  url node['solr']['url']
+  version node['solr']['version']
   checksum node['solr']['checksum']
-  mode     0644
-  action :create_if_missing
+  action :install
 end
 
-bash 'unpack solr' do
-  code   "tar xzf #{node.solr.download} -C #{node.solr.directory}"
-  not_if "test -d #{node.solr.extracted}"
-end
-
-bash 'install solr into jetty' do
-  code   "cp #{node.solr.war} #{node.jetty.home}/webapps/solr.war"
-  not_if "test `sha256sum #{node.jetty.home}/webapps/solr.war | cut -d ' ' -f 1` = `sha256sum #{node.solr.war} | cut -d ' ' -f 1`"
-  notifies :restart, resources(:service => "jetty")
-end
-
-directory node.solr.data do
-  owner     node.jetty.user
-  group     node.jetty.group
-  recursive true
-  mode      "750"
-end
-
-template "#{node.jetty.home}/contexts/solr.xml" do
-  owner  node.jetty.user
+template "#{node['jetty']['home']}/contexts/solr.xml" do
+  owner  node['jetty']['user']
   source "solr.context.erb"
   notifies :restart, resources(:service => "jetty")
 end
