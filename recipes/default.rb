@@ -32,18 +32,18 @@ template "#{node['jetty']['home']}/contexts/solr.xml" do
   notifies :restart, resources(:service => "jetty")
 end
 
-remote_directory node.solr.config do
+remote_directory node['solr']['config_dir'] do
   source       "sunspot-1.2.1"
-  owner        node.jetty.user
-  group        node.jetty.group
-  files_owner  node.jetty.user
-  files_group  node.jetty.group
+  owner        node['jetty']['user']
+  group        node['jetty']['group']
+  files_owner  node['jetty']['user']
+  files_group  node['jetty']['group']
   files_backup 0
-  files_mode   "644"
+  files_mode   00644
   purge        true
 
   notifies     :restart, resources(:service => "jetty"), :immediately
-  not_if       { File.exists? node.solr.config }
+  not_if       { File.exists? node['solr']['config_dir'] }
 end
 
 
