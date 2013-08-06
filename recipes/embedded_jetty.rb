@@ -35,16 +35,16 @@ directory '/etc/jetty6' do
   action :create
 end
 
-execute 'ln -s solr/example jetty6' do
-  command 'ln -sf /usr/local/solr/example /usr/share/jetty6'
+link '/usr/share/jetty6' do
+  to '/usr/local/solr/example'
 end
 
-execute 'ln -s jetty.xml' do
-  command 'ln -sf /usr/local/solr/example/etc/jetty.xml /etc/jetty6/jetty.xml'
+link '/etc/jetty6/jetty.xml' do
+  to '/usr/local/solr/example/etc/jetty.xml'
 end
 
-execute 'ln-s webdefault.xml' do
-  command 'ln -sf /usr/local/solr/example/etc/webdefault.xml /etc/jetty6/webdefault.xml'
+link '/etc/jetty6/webdefault.xml' do
+  to '/usr/local/solr/example/etc/webdefault.xml'
 end
 
 directory '/var/run/jetty6' do
