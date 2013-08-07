@@ -18,6 +18,7 @@
 #
 
 include_recipe 'java'
+include_recipe 'solr::common'
 
 group node['jetty']['group'] do
   action :create
@@ -54,30 +55,29 @@ directory '/var/run/jetty6' do
   action :create
 end
 
-cookbook_file '/usr/sbin/djetty6' do
-  source 'djetty6'
+template '/usr/sbin/djetty6' do
+  source 'djetty6.erb'
   owner 'root'
   group 'root'
   mode 00755
 end
 
-cookbook_file '/etc/init.d/jetty6' do
-  source 'jetty6'
+template '/etc/init.d/jetty6' do
+  source 'jetty6.erb'
   owner 'root'
   group 'root'
   mode 00755
 end
 
 template '/etc/default/jetty6' do
-  source 'jetty6.erb'
+  source 'jetty6.default.erb'
   owner 'root'
   group 'root'
   mode '0644'
-  notifies :restart, 'service[jetty6]'
 end
 
 service 'jetty6' do
   service_name 'jetty6'
   action [:enable, :start]
-  supports :status => true, :start => true, :stop => true, :restart => true
+  supports :status => true,:start => true,:stop => true,:restart => true
 end
