@@ -69,8 +69,8 @@ template '/etc/init.d/jetty6' do
   mode 00755
 end
 
-template '/etc/default/jetty6' do
-  source 'jetty6.default.erb'
+template '/etc/default/jetty' do
+  source 'jetty.default.erb'
   owner 'root'
   group 'root'
   mode '0644'
