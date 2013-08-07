@@ -17,15 +17,8 @@
 # limitations under the License.
 #
 
-ark "solr" do
-  url node['solr']['url']
-  version node['solr']['version']
-  checksum node['solr']['checksum']
-  action :install
-end
-
-unless node['solr']['embedded_jetty']
   include_recipe "jetty"
+  include_recipe "solr::common"
 
   directory node['solr']['data'] do
     user node['jetty']['user']
@@ -108,6 +101,3 @@ unless node['solr']['embedded_jetty']
     not_if       "test -e #{node.solr.custom_config}/solrconfig.xml"
   end
 =end
-else
-  include_recipe 'solr::embedded_jetty'
-end

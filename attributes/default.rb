@@ -3,7 +3,6 @@ include_attribute "java"
 
 expand!
 
-default['solr']['embedded_jetty'] = false
 default['solr']['version'] = "4.4.0"
 default['solr']['checksum'] = nil #sha265
 
