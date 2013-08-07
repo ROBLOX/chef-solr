@@ -104,6 +104,7 @@ template '/etc/sysconfig/jetty6' do
   group 'root'
   mode 00644
   notifies :run, 'execute[dos2unix /etc/sysconfig/jetty6]', :immediately
+  notifies :restart, 'service[jetty6]', :delayed
 end
 
 execute 'dos2unix /etc/sysconfig/jetty6' do
@@ -113,6 +114,6 @@ end
 
 service 'jetty6' do
   service_name 'jetty6'
+  supports :status => true, :start => true, :stop => true, :restart => true
   action [:enable, :start]
-  supports :status => true,:start => true,:stop => true,:restart => true
 end
