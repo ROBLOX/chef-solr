@@ -52,6 +52,23 @@ directory '/var/run/jetty6' do
   owner node['jetty']['user']
   group node['jetty']['group']
   mode 00644
+  recursive true
+  action :create
+end
+
+directory node['jetty']['tmp_dir'] do
+  owner node['jetty']['user']
+  group node['jetty']['group']
+  mode 00644
+  recursive true
+  action :create
+end
+
+directory node['jetty']['log_dir'] do
+  owner node['jetty']['user']
+  group node['jetty']['group']
+  mode 00644
+  recursive true
   action :create
 end
 
@@ -60,6 +77,12 @@ template '/usr/sbin/djetty6' do
   owner 'root'
   group 'root'
   mode 00755
+  notifies :run, 'execute[dos2unix /usr/sbin/djetty6]', :immediately
+end
+
+execute 'dos2unix /usr/sbin/djetty6' do
+  command 'dos2unix /usr/sbin/djetty6'
+  action :nothing
 end
 
 template '/etc/init.d/jetty6' do
@@ -67,13 +90,25 @@ template '/etc/init.d/jetty6' do
   owner 'root'
   group 'root'
   mode 00755
+  notifies :run, 'execute[dos2unix /etc/init.d/jetty6]', :immediately
 end
 
-template '/etc/default/jetty' do
-  source 'jetty.default.erb'
+execute 'dos2unix /etc/init.d/jetty6' do
+  command 'dos2unix /etc/init.d/jetty6'
+  action :nothing
+end
+
+template '/etc/sysconfig/jetty6' do
+  source 'jetty6.sysconfig.erb'
   owner 'root'
   group 'root'
-  mode '0644'
+  mode 00644
+  notifies :run, 'execute[dos2unix /etc/sysconfig/jetty6]', :immediately
+end
+
+execute 'dos2unix /etc/sysconfig/jetty6' do
+  command 'dos2unix /etc/sysconfig/jetty6'
+  action :nothing
 end
 
 service 'jetty6' do
