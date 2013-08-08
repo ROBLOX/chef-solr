@@ -80,8 +80,8 @@ execute "dos2unix #{node['ark']['prefix_home']}/solr/example/etc/jetty.conf" do
   action :nothing
 end
 
-template "#{node['ark']['prefix_home']}/solr/example/etc/jetty-logging.xml" do
-  source 'jetty-logging.xml.erb'
+cookbook_file "#{node['ark']['prefix_home']}/solr/example/etc/jetty-logging.xml" do
+  source 'jetty-logging.xml'
   owner node['jetty']['user']
   group node['jetty']['group']
   mode 00644
