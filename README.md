@@ -2,7 +2,7 @@ DESCRIPTION:
 ==================
 This cookbook is designed to install Solr as a Jetty servlet
 
-The cookbook currently only supports installing the 'embedded' jetty example server as a service, installing Solr as a Jetty servler is a WIP.
+The cookbook currently only supports installing the 'embedded' jetty example server as a service, installing Solr as a Jetty servlet is a WIP.
 
 REQUIREMENTS:
 ==================
