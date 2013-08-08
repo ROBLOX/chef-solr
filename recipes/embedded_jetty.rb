@@ -29,23 +29,18 @@ user node['jetty']['user'] do
   action :create
 end
 
-directory '/etc/jetty6' do
-  owner 'root'
-  group 'root'
-  mode 00644
-  action :create
-end
-
 link '/usr/share/jetty6' do
-  to '/usr/local/solr/example'
+  to "#{node['ark']['prefix_home']}/solr/example"
+  owner node['jetty']['user']
+  group node['jetty']['group']
+  mode 00644
 end
 
-link '/etc/jetty6/jetty.xml' do
-  to '/usr/local/solr/example/etc/jetty.xml'
-end
-
-link '/etc/jetty6/webdefault.xml' do
-  to '/usr/local/solr/example/etc/webdefault.xml'
+link '/etc/jetty6' do
+  to "#{node['ark']['prefix_home']}/solr/example/etc"
+  user 'root'
+  group 'root'
+  mode 00755
 end
 
 directory '/var/run/jetty6' do
@@ -64,12 +59,64 @@ directory node['jetty']['tmp_dir'] do
   action :create
 end
 
-directory node['jetty']['log_dir'] do
+directory "#{node['jetty']['log_dir']}/solr" do
   owner node['jetty']['user']
   group node['jetty']['group']
   mode 00644
   recursive true
   action :create
+end
+
+cookbook_file "#{node['ark']['prefix_home']}/solr/example/etc/jetty.conf" do
+  source 'jetty.conf'
+  owner node['jetty']['user']
+  group node['jetty']['group']
+  mode 00644
+  notifies :run, "execute[dos2unix #{node['ark']['prefix_home']}/solr/example/etc/jetty.conf]", :immediately
+end
+
+execute "dos2unix #{node['ark']['prefix_home']}/solr/example/etc/jetty.conf" do
+  command "dos2unix #{node['ark']['prefix_home']}/solr/example/etc/jetty.conf"
+  action :nothing
+end
+
+template "#{node['ark']['prefix_home']}/solr/example/etc/jetty-logging.xml" do
+  source 'jetty-logging.xml.erb'
+  owner node['jetty']['user']
+  group node['jetty']['group']
+  mode 00644
+  notifies :run, "execute[dos2unix #{node['ark']['prefix_home']}/solr/example/etc/jetty-logging.xml]", :immediately
+end
+
+execute "dos2unix #{node['ark']['prefix_home']}/solr/example/etc/jetty-logging.xml" do
+  command "dos2unix #{node['ark']['prefix_home']}/solr/example/etc/jetty-logging.xml"
+  action :nothing
+end
+
+template "#{node['ark']['prefix_home']}/solr/example/etc/jetty.xml" do
+  source 'jetty.xml.erb'
+  owner node['jetty']['user']
+  group node['jetty']['group']
+  mode 00644
+  notifies :run, "execute[dos2unix #{node['ark']['prefix_home']}/solr/example/etc/jetty.xml]", :immediately
+end
+
+execute "dos2unix #{node['ark']['prefix_home']}/solr/example/etc/jetty.xml" do
+  command "dos2unix #{node['ark']['prefix_home']}/solr/example/etc/jetty.xml"
+  action :nothing
+end
+
+template "#{node['ark']['prefix_home']}/solr/example/etc/webdefault.xml" do
+  source 'webdefault.xml.erb'
+  owner node['jetty']['user']
+  group node['jetty']['group']
+  mode 00644
+  notifies :run, "execute[dos2unix #{node['ark']['prefix_home']}/solr/example/etc/webdefault.xml]", :immediately
+end
+
+execute "dos2unix #{node['ark']['prefix_home']}/solr/example/etc/webdefault.xml" do
+  command "dos2unix #{node['ark']['prefix_home']}/solr/example/etc/webdefault.xml"
+  action :nothing
 end
 
 template '/usr/sbin/djetty6' do
@@ -85,8 +132,8 @@ execute 'dos2unix /usr/sbin/djetty6' do
   action :nothing
 end
 
-template '/etc/init.d/jetty6' do
-  source 'jetty6.erb'
+cookbook_file '/etc/init.d/jetty6' do
+  source 'jetty6'
   owner 'root'
   group 'root'
   mode 00755
