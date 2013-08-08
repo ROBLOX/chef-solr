@@ -62,7 +62,8 @@ start() {
                         read kpid < $JETTY_PID
                         if checkpid $kpid 2>&1; then
                                 echo "process already running"
-                                return -1
+                                status -p $JETTY_PID jetty6
+                                exit $?
                         else
                                 echo "lock file found but no process running for pid $kpid, continuing"
                         fi
@@ -74,9 +75,9 @@ start() {
 #	  	rebuild-jar-repository -s ${JETTY_HOME}/ext
 
         if [ -e /etc/rc.d/init.d/functions ]; then
-                daemon --user $JETTY_USER JETTY_PID=$JETTY_PID JETTY_CFG=\"$JETTY_CFG\" JAVA_OPTS=\"$JAVA_OPTS\" JETTY_PORT=$JETTY_PORT $JETTY_SCRIPT
+                daemon --user $JETTY_USER JETTY_PID=$JETTY_PID JETTY_CFG=\"$JETTY_CFG\" JAVA_OPTS=\"$JAVA_OPTS\" JETTY_PORT=$JETTY_PORT JETTY_LOGS=$JETTY_LOGS $JETTY_SCRIPT
         else
-                su - $JETTY_USER -c "JETTY_PID=$JETTY_PID JETTY_CFG=\"$JETTY_CFG\" JAVA_OPTS=\"$JAVA_OPTS\" JETTY_PORT=$JETTY_PORT $JETTY_SCRIPT"
+                su - $JETTY_USER -c "JETTY_PID=$JETTY_PID JETTY_CFG=\"$JETTY_CFG\" JAVA_OPTS=\"$JAVA_OPTS\" JETTY_PORT=$JETTY_PORT JETTY_LOGS=$JETTY_LOGS $JETTY_SCRIPT"
         fi
 
         RETVAL=$?
@@ -129,8 +130,8 @@ case "$1" in
         stop
         ;;
   status)
-	status -p $JETTY_PID jetty6
-	;;
+        status -p $JETTY_PID jetty6
+        ;;
   restart|reload)
         stop
         sleep 2

@@ -19,5 +19,5 @@ then
 fi
 
 cd $JETTY_HOME
-exec /usr/bin/java $JAVA_OPTS -Djetty.port=$JETTY_PORT -jar start.jar $JETTY_CFG 2>/dev/null &
+exec /usr/bin/java $JAVA_OPTS -Djetty.port=$JETTY_PORT -Djetty.logs=$JETTY_LOGS -jar start.jar $JETTY_CFG 2>/dev/null &
 echo $! >$JETTY_PID
