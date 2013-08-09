@@ -16,7 +16,6 @@ default['solr']['war'] = "solr-#{node['solr']['version']}.war"
 
 default['solr']['context_path']  = '/solr'
 default['solr']['config_dir'] = '/etc/solr'
-default['solr']['prefix_home'] = '/usr/share'
 default['solr']['data'] = "#{node['jetty']['webapp_dir']}/solr/data"
 
 default['solr']['custom_config'] = nil

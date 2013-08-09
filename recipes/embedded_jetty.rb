@@ -29,7 +29,7 @@ user node['jetty']['user'] do
   action :create
 end
 
-link '/usr/share/jetty6' do
+link node['jetty']['home'] do
   to "#{node['ark']['prefix_home']}/solr/example"
   owner node['jetty']['user']
   group node['jetty']['group']
