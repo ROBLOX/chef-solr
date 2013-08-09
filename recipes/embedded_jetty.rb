@@ -151,7 +151,6 @@ template '/etc/sysconfig/jetty6' do
   group 'root'
   mode 00644
   notifies :run, 'execute[dos2unix /etc/sysconfig/jetty6]', :immediately
-  notifies :restart, 'service[jetty6]', :delayed
 end
 
 execute 'dos2unix /etc/sysconfig/jetty6' do
