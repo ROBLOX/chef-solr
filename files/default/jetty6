@@ -15,8 +15,6 @@
 # Keith Irwin <keith_irwin@non.hp.com>
 # Nicolas Mailhot <nicolas.mailhot@one2team.com>
 #
-#
-
 
 # Source function library.
 . /etc/init.d/functions
