@@ -72,12 +72,6 @@ cookbook_file "#{node['ark']['prefix_home']}/solr/example/etc/jetty.conf" do
   owner node['jetty']['user']
   group node['jetty']['group']
   mode 00644
-  notifies :run, "execute[dos2unix #{node['ark']['prefix_home']}/solr/example/etc/jetty.conf]", :immediately
-end
-
-execute "dos2unix #{node['ark']['prefix_home']}/solr/example/etc/jetty.conf" do
-  command "dos2unix #{node['ark']['prefix_home']}/solr/example/etc/jetty.conf"
-  action :nothing
 end
 
 cookbook_file "#{node['ark']['prefix_home']}/solr/example/etc/jetty-logging.xml" do
@@ -85,12 +79,6 @@ cookbook_file "#{node['ark']['prefix_home']}/solr/example/etc/jetty-logging.xml"
   owner node['jetty']['user']
   group node['jetty']['group']
   mode 00644
-  notifies :run, "execute[dos2unix #{node['ark']['prefix_home']}/solr/example/etc/jetty-logging.xml]", :immediately
-end
-
-execute "dos2unix #{node['ark']['prefix_home']}/solr/example/etc/jetty-logging.xml" do
-  command "dos2unix #{node['ark']['prefix_home']}/solr/example/etc/jetty-logging.xml"
-  action :nothing
 end
 
 template "#{node['ark']['prefix_home']}/solr/example/etc/jetty.xml" do
@@ -98,12 +86,6 @@ template "#{node['ark']['prefix_home']}/solr/example/etc/jetty.xml" do
   owner node['jetty']['user']
   group node['jetty']['group']
   mode 00644
-  notifies :run, "execute[dos2unix #{node['ark']['prefix_home']}/solr/example/etc/jetty.xml]", :immediately
-end
-
-execute "dos2unix #{node['ark']['prefix_home']}/solr/example/etc/jetty.xml" do
-  command "dos2unix #{node['ark']['prefix_home']}/solr/example/etc/jetty.xml"
-  action :nothing
 end
 
 template "#{node['ark']['prefix_home']}/solr/example/etc/webdefault.xml" do
@@ -111,12 +93,6 @@ template "#{node['ark']['prefix_home']}/solr/example/etc/webdefault.xml" do
   owner node['jetty']['user']
   group node['jetty']['group']
   mode 00644
-  notifies :run, "execute[dos2unix #{node['ark']['prefix_home']}/solr/example/etc/webdefault.xml]", :immediately
-end
-
-execute "dos2unix #{node['ark']['prefix_home']}/solr/example/etc/webdefault.xml" do
-  command "dos2unix #{node['ark']['prefix_home']}/solr/example/etc/webdefault.xml"
-  action :nothing
 end
 
 template '/usr/sbin/djetty6' do
@@ -124,12 +100,6 @@ template '/usr/sbin/djetty6' do
   owner 'root'
   group 'root'
   mode 00755
-  notifies :run, 'execute[dos2unix /usr/sbin/djetty6]', :immediately
-end
-
-execute 'dos2unix /usr/sbin/djetty6' do
-  command 'dos2unix /usr/sbin/djetty6'
-  action :nothing
 end
 
 cookbook_file '/etc/init.d/jetty6' do
@@ -137,12 +107,6 @@ cookbook_file '/etc/init.d/jetty6' do
   owner 'root'
   group 'root'
   mode 00755
-  notifies :run, 'execute[dos2unix /etc/init.d/jetty6]', :immediately
-end
-
-execute 'dos2unix /etc/init.d/jetty6' do
-  command 'dos2unix /etc/init.d/jetty6'
-  action :nothing
 end
 
 template '/etc/sysconfig/jetty6' do
@@ -150,12 +114,6 @@ template '/etc/sysconfig/jetty6' do
   owner 'root'
   group 'root'
   mode 00644
-  notifies :run, 'execute[dos2unix /etc/sysconfig/jetty6]', :immediately
-end
-
-execute 'dos2unix /etc/sysconfig/jetty6' do
-  command 'dos2unix /etc/sysconfig/jetty6'
-  action :nothing
 end
 
 service 'jetty6' do
