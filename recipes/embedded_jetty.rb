@@ -107,12 +107,6 @@ cookbook_file '/etc/init.d/jetty6' do
   owner 'root'
   group 'root'
   mode 00755
-  notifies :run, 'execute[dos2unix /etc/init.d/jetty6]', :immediately
-end
-
-execute 'dos2unix /etc/init.d/jetty6' do
-  command 'dos2unix /etc/init.d/jetty6'
-  action :nothing
 end
 
 template '/etc/sysconfig/jetty6' do
