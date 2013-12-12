@@ -118,6 +118,6 @@ end
 
 service 'jetty6' do
   service_name 'jetty6'
-  supports :status => true, :start => true, :stop => true, :restart => true
+  supports :status => true, :restart => true, :reload => true
   action [:enable, :start]
 end
