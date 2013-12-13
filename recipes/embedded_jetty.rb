@@ -102,7 +102,7 @@ template '/usr/sbin/djetty6' do
   mode 00755
 end
 
-cookbook_file '/etc/init.d/jetty6' do
+template '/etc/init.d/jetty6' do
   source 'jetty6'
   owner 'root'
   group 'root'
